@@ -12,7 +12,6 @@
 	strip_delay = 70
 	equip_delay_other = 70
 	resistance_flags = FIRE_PROOF
-	alternate_worn_layer = ABOVE_SUIT_LAYER //monkestation addition
 
 	slowdown = SHOES_SLOWDOWN
 	/// Whether the magpulse system is active
@@ -26,7 +25,6 @@
 	. = ..()
 	AddElement(/datum/element/update_icon_updates_onmob, slot_flags)
 	RegisterSignal(src, COMSIG_SPEED_POTION_APPLIED, PROC_REF(on_speed_potioned))
-	ADD_TRAIT(src, TRAIT_ALWAYS_RENDER, INNATE_TRAIT) //monkestation addition
 
 /// Signal handler for [COMSIG_SPEED_POTION_APPLIED]. Speed potion removes the active slowdown
 /obj/item/clothing/shoes/magboots/proc/on_speed_potioned(datum/source)
@@ -79,4 +77,3 @@
 	desc = "Reverse-engineered magnetic boots that have a heavy magnetic pull. Property of Gorlex Marauders."
 	icon_state = "syndiemag0"
 	base_icon_state = "syndiemag"
-	slowdown_active = SHOES_SLOWDOWN //monkestation addition

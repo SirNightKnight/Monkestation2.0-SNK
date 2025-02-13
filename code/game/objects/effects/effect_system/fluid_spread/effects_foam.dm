@@ -228,7 +228,7 @@
 /obj/effect/particle_effect/fluid/foam/firefighting
 	name = "firefighting foam"
 	lifetime = 20 //doesn't last as long as normal foam
-	//result_type = /obj/effect/decal/cleanable/plasma: monkestation removal
+	result_type = /obj/effect/decal/cleanable/plasma
 	allow_duplicate_results = FALSE
 	slippery_foam = FALSE
 	/// The amount of plasma gas this foam has absorbed. To be deposited when the foam dissipates.
@@ -246,7 +246,7 @@
 		return
 
 	var/obj/effect/hotspot/hotspot = locate() in location
-	if(!location.air) //monkestation edit: doesnt require a hotspot
+	if(!(hotspot && location.air))
 		return
 
 	QDEL_NULL(hotspot)
@@ -261,17 +261,12 @@
 	air.garbage_collect()
 	location.air_update_turf(FALSE, FALSE)
 
-//MONKESTATION EDIT START
 /obj/effect/particle_effect/fluid/foam/firefighting/make_result()
-	. = ..()
-	if(absorbed_plasma > 5)
-		var/turf/open/exposed_turf = loc
-		var/obj/effect/decal/cleanable/plasma/reagentdecal = new(exposed_turf)
-		reagentdecal = locate() in exposed_turf
-		if(reagentdecal)
-			reagentdecal.reagents.add_reagent(/datum/reagent/stable_plasma, absorbed_plasma)
-			absorbed_plasma = 0
-//MONKESTATION EDIT STOP
+	var/atom/movable/deposit = ..()
+	if(istype(deposit) && deposit.reagents && absorbed_plasma > 0)
+		deposit.reagents.add_reagent(/datum/reagent/stable_plasma, absorbed_plasma)
+		absorbed_plasma = 0
+	return deposit
 
 /obj/effect/particle_effect/fluid/foam/firefighting/foam_mob(mob/living/foaming, seconds_per_tick)
 	if(!istype(foaming))

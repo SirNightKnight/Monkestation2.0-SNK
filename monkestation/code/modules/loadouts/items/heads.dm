@@ -224,7 +224,7 @@ GLOBAL_LIST_INIT(loadout_helmets, generate_loadout_items(/datum/loadout_item/hea
 	item_path = /obj/item/clothing/head/costume/weddingveil
 
 /datum/loadout_item/head/synde
-	name = "Red Space Helmet Replica"
+	name = "Black Space-Helmet Replica"
 	item_path = /obj/item/clothing/head/syndicatefake
 
 /datum/loadout_item/head/glatiator

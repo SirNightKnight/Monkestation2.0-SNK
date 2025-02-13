@@ -319,10 +319,8 @@ There are several things that need to be remembered:
 		var/obj/item/worn_item = shoes
 		update_hud_shoes(worn_item)
 
-		//MONKESTATION EDIT START
-		if(!HAS_TRAIT(shoes, TRAIT_ALWAYS_RENDER) && (check_obscured_slots(transparent_protection = TRUE) & ITEM_SLOT_FEET))
+		if(check_obscured_slots(transparent_protection = TRUE) & ITEM_SLOT_FEET)
 			return
-		//MONKESTATION EDIT STOP
 
 		var/icon_file = DEFAULT_SHOES_FILE
 
